@@ -1,10 +1,10 @@
-import { Paper, Stack, Tabs } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { Flex, Pagination, Paper, Stack, Tabs } from "@mantine/core";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./Folder.module.scss";
 import { FolderViewType, type IForlderProps } from "./Folder.model";
 import { FolderNavigation } from "./FolderNavigation/FolderNavigation";
 import { useSearchParams } from "react-router-dom";
-import { VIEW_QUERY } from "~/constants/general";
+import { VIEW_QUERY } from "~/constants";
 
 export const Folder = ({
   data,
@@ -12,6 +12,9 @@ export const Folder = ({
   gridView,
   tableView,
   navTitle,
+  tablePage = 1,
+  tableTotalPages = 1,
+  onTablePageChange,
 }: IForlderProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -29,6 +32,12 @@ export const Folder = ({
     setActiveTab(tab as FolderViewType);
     setSearchParams({ view: tab });
   };
+
+  const memoizedItems = useMemo(() => {
+    return activeTab === FolderViewType.GRID ? data.grid : data.table;
+  }, [activeTab, data.grid, data.table]);
+
+  const hasPagination = activeTab === FolderViewType.TABLE && onTablePageChange;
 
   useEffect(() => {
     if (!searchParams.get(VIEW_QUERY)) {
@@ -51,12 +60,26 @@ export const Folder = ({
         </Tabs.List>
       </Tabs>
 
-      <Stack>
+      <Stack className={styles["folder__content"]}>
         {options?.length && (
-          <ViewComponent
-            items={activeTab === FolderViewType.GRID ? data.grid : data.table}
-            options={options}
-          />
+          <ViewComponent items={memoizedItems} options={options} />
+        )}
+
+        {hasPagination && (
+          <Flex
+            justify="center"
+            align="center"
+            className={styles["folder__pagination"]}
+          >
+            <Pagination
+              onChange={onTablePageChange}
+              total={tableTotalPages}
+              value={tablePage}
+              color="blue"
+              size="sm"
+              radius="md"
+            />
+          </Flex>
         )}
       </Stack>
     </Paper>

@@ -9,4 +9,25 @@
     background-color: white;
     z-index: 9999;
   }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+    position: relative;
+  }
+
+  &__pagination {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    padding: 8px 0;
+    border-top: 1px solid #e0e0e0;
+  }
 }

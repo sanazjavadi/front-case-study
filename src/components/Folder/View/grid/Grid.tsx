@@ -1,12 +1,11 @@
 import { Card, Text, SimpleGrid, Badge } from "@mantine/core";
 import { FolderActions } from "../../FolderActions/FolderActions";
 import type { IViewProps } from "../view.model";
-import { formatDate } from "../view.util";
 import styles from "./Grid.module.scss";
+import { formatDate } from "~/utils";
+import { ItemType } from "../../Folder.model";
 
 export const GridView = ({ items = [], options }: IViewProps) => {
-  if (items.length === 0) return <Text>No items found</Text>;
-
   return (
     <SimpleGrid
       spacing="lg"
@@ -16,6 +15,7 @@ export const GridView = ({ items = [], options }: IViewProps) => {
       {items.map((item) => {
         const created = formatDate(item.createdAt);
         const updated = formatDate(item.updatedAt);
+        const badgeColor = item.type === ItemType.FOLDER ? "blue" : "gray";
 
         return (
           <Card
@@ -36,7 +36,7 @@ export const GridView = ({ items = [], options }: IViewProps) => {
                 </Text>
                 <Badge
                   className={styles["grid-wrapper__item-badge"]}
-                  color={item.type === "folder" ? "blue" : "gray"}
+                  color={badgeColor}
                   variant="light"
                   radius="sm"
                 >

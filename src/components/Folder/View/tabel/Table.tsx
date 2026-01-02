@@ -1,12 +1,10 @@
-import { Table, Text } from "@mantine/core";
+import { Table } from "@mantine/core";
 import { FolderActions } from "../../FolderActions/FolderActions";
 import type { IViewProps } from "../view.model";
-import { formatDate } from "../view.util";
 import styles from "./Table.module.scss";
+import { formatDate } from "~/utils";
 
 export const TableView = ({ items = [], options }: IViewProps) => {
-  if (items.length === 0) return <Text>No items found</Text>;
-
   return (
     <div className={styles["table-wrapper"]}>
       <Table.ScrollContainer minWidth={500} type="native">
@@ -30,11 +28,7 @@ export const TableView = ({ items = [], options }: IViewProps) => {
               return (
                 <Table.Tr key={item.id}>
                   <Table.Td data-label="ID">{item.id}</Table.Td>
-                  <Table.Td
-                    data-label="Name"
-                    className={styles["td-name"]}
-                    title={item.name}
-                  >
+                  <Table.Td data-label="Name" title={item.name}>
                     {item.name}
                   </Table.Td>
                   <Table.Td data-label="Type">{item.type}</Table.Td>
@@ -44,10 +38,7 @@ export const TableView = ({ items = [], options }: IViewProps) => {
                   <Table.Td data-label="Updated At">
                     {updated.date} at {updated.time}
                   </Table.Td>
-                  <Table.Td
-                    data-label="Actions"
-                    className={styles["td-actions"]}
-                  >
+                  <Table.Td data-label="Actions">
                     <FolderActions item={item} options={options} />
                   </Table.Td>
                 </Table.Tr>
