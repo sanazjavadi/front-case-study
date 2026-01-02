@@ -1,7 +1,9 @@
+import type { Item } from "~/components/Folder/Folder.model";
+
 export const FAVORITES_OPTIONS = [
   {
     label: "Remove from Favorites",
-    onClick(item: any) {
+    onClick(item: Item) {
       alert(`${item.name} removed from Favorites`);
     },
   },
@@ -19,7 +21,7 @@ export const FAVORITES_OPTIONS = [
   },
   {
     label: "Delete",
-    onClick(item: any) {
+    onClick(item: Item) {
       alert(`${item.name} deleted`);
     },
   },
