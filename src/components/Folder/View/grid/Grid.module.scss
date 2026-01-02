@@ -1,0 +1,57 @@
+.grid-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+
+  &__card {
+    overflow: visible;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  &__card-info {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    align-items: center;
+  }
+
+  &__item-name {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  &__item-badge {
+    flex-shrink: 0;
+  }
+
+  &__item-actions {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-wrapper {
+    gap: 8px;
+
+    &__card {
+      padding: 12px;
+    }
+  }
+}
