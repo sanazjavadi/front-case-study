@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Item } from "~/components/Folder/Folder.model";
+import type { Item } from "typings/types";
 
 export const useFetchItems = (endpoint: string) => {
   const [data, setData] = useState<Item[]>([]);

@@ -1,23 +1,6 @@
 import type { FC } from "react";
-import type { IViewProps, options } from "./View/view.model";
-
-export enum FolderViewType {
-  GRID = "grid",
-  TABLE = "table",
-}
-
-export enum ItemType {
-  FILE = "file",
-  FOLDER = "folder",
-}
-
-export type Item = {
-  id: number;
-  name: string;
-  type: ItemType;
-  createdAt: string;
-  updatedAt: string;
-};
+import type { IViewProps } from "./View/view.model";
+import type { ActionMenuOption, Item } from "typings/types";
 
 export type ViewComponent = FC<IViewProps>;
 
@@ -29,7 +12,7 @@ export interface IForlderProps {
   navTitle: string;
   gridView: ViewComponent;
   tableView: ViewComponent;
-  options?: options[];
+  options?: ActionMenuOption[];
   tablePage?: number;
   tableTotalPages?: number;
   onTablePageChange?: (page: number) => void;

@@ -1,7 +1,7 @@
 import { useRef, useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { FolderViewType } from "typings/types";
 import { GRID_LOAD_DELAY, ITEMS_PER_PAGE, VIEW_QUERY } from "~/constants";
-import { FolderViewType } from "~/components/Folder/Folder.model";
 import {
   useIntersectionObserver,
   useVisibleItems,

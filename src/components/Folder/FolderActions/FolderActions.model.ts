@@ -1,7 +1,6 @@
-import type { Item } from "../Folder.model";
-import type { options } from "../View/view.model";
+import type { ActionMenuOption, Item } from "typings/types";
 
 export interface FolderActionsProps {
   item: Item;
-  options: options[];
+  options: ActionMenuOption[];
 }

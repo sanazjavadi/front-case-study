@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { Item } from "~/components/Folder/Folder.model";
+import type { Item } from "typings/types";
 import { ITEMS_PER_PAGE } from "~/constants/general";
 
 export const useVisibleItems = ({

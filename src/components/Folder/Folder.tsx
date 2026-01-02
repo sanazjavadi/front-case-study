@@ -1,10 +1,11 @@
 import { Flex, Pagination, Paper, Stack, Tabs } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./Folder.module.scss";
-import { FolderViewType, type IForlderProps } from "./Folder.model";
+import { type IForlderProps } from "./Folder.model";
 import { FolderNavigation } from "./FolderNavigation/FolderNavigation";
 import { useSearchParams } from "react-router-dom";
 import { VIEW_QUERY } from "~/constants";
+import { FolderViewType } from "typings/types";
 
 export const Folder = ({
   data,

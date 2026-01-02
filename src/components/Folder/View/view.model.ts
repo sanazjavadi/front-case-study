@@ -1,11 +1,6 @@
-import type { Item } from "../Folder.model";
-
-export type options = {
-  label: string;
-  onClick: (item: Item) => void;
-};
+import type { ActionMenuOption, Item } from "typings/types";
 
 export interface IViewProps {
   items: Item[];
-  options: options[];
+  options: ActionMenuOption[];
 }

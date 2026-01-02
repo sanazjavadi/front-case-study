@@ -3,7 +3,7 @@ import { FolderActions } from "../../FolderActions/FolderActions";
 import type { IViewProps } from "../view.model";
 import styles from "./Grid.module.scss";
 import { formatDate } from "~/utils";
-import { ItemType } from "../../Folder.model";
+import { ItemType } from "typings/types";
 
 export const GridView = ({ items = [], options }: IViewProps) => {
   return (

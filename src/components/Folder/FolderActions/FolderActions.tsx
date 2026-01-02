@@ -9,9 +9,11 @@ export const FolderActions = ({ options, item }: FolderActionsProps) => {
   const [isOpen, setOpened] = useState(false);
   const ref = useClickOutside(() => setOpened(false));
 
+  const handleToggleOpenState = () => setOpened(!isOpen);
+
   return (
     <div ref={ref} className={styles["folder-actions"]}>
-      <ActionIcon variant="transparent" onClick={() => setOpened(!isOpen)}>
+      <ActionIcon variant="transparent" onClick={handleToggleOpenState}>
         <IconDots size={24} />
       </ActionIcon>
 
@@ -22,19 +24,23 @@ export const FolderActions = ({ options, item }: FolderActionsProps) => {
           p="xs"
           className={styles["folder-actions__items"]}
         >
-          {options.map((option) => (
-            <Text
-              key={option.label}
-              size="sm"
-              className={styles["folder-actions__items-text"]}
-              onClick={() => {
-                option.onClick(item);
-                setOpened(false);
-              }}
-            >
-              {option.label}
-            </Text>
-          ))}
+          {options.map((option) => {
+            const handleOptionClick = () => {
+              option.onClick(item);
+              setOpened(false);
+            };
+
+            return (
+              <Text
+                key={option.id}
+                size="sm"
+                className={styles["folder-actions__items-text"]}
+                onClick={handleOptionClick}
+              >
+                {option.label}
+              </Text>
+            );
+          })}
         </Paper>
       ) : null}
     </div>
