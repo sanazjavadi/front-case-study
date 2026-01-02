@@ -1,8 +1,8 @@
 import { Paper, Stack, Tabs } from "@mantine/core";
 import { useState } from "react";
 import styles from "./Folder.module.scss";
-import { FolderNavigation } from "./FolderNavigation";
 import { FolderViewType, type IForlderProps } from "./Folder.model";
+import { FolderNavigation } from "./FolderNavigation/FolderNavigation";
 
 export const Folder = ({
   data,

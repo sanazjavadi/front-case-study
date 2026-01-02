@@ -1,0 +1,18 @@
+.folder-actions {
+  position: relative;
+  display: inline-block;
+
+  &__items {
+    position: absolute;
+    right: 0;
+    min-width: 180px;
+    top: "100%";
+    z-index: 999999;
+    background: white;
+  }
+
+  &__items-text {
+    cursor: pointer;
+    padding: 4px;
+  }
+}
