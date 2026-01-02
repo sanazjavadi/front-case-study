@@ -1,7 +1,5 @@
 import { Box } from "@mantine/core";
-import { Folder, Spinner } from "~/components";
-import { EmptyState } from "~/components/EmptyState/EmptyState";
-import { GridView, TableView } from "~/components/Folder/View";
+import { Folder, Spinner, GridView, TableView, EmptyState } from "~/components";
 import { FAVORITES_OPTIONS, FOVORITE_ITEMS_ENDPOINT } from "~/constants";
 import { useFolderPage } from "~/hooks";
 
