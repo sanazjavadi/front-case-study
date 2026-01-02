@@ -1,3 +1,12 @@
 .folder {
   font-weight: bold;
+
+  &__tabs {
+    width: 100%;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 9999;
+  }
 }

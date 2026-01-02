@@ -1,49 +1,41 @@
 import { Paper, Stack, Tabs } from "@mantine/core";
-import { useEffect, useState, type FC } from "react";
+import { useState } from "react";
+import styles from "./Folder.module.scss";
 import { FolderNavigation } from "./FolderNavigation";
+import { FolderViewType, type IForlderProps } from "./Folder.model";
 
-type Item = {
-  id: number;
-  name: string;
-  type: string;
-  createdAt: string;
-  updatedAt: string;
-};
+export const Folder = ({
+  data,
+  options,
+  gridView,
+  tableView,
+  navTitle,
+}: IForlderProps) => {
+  const [activeTab, setActiveTab] = useState<FolderViewType>(
+    FolderViewType.GRID
+  );
 
-export const Folder = (props: {
-  data: Array<Item>;
-  navTitle: string;
-  gridView: FC<any>;
-  tableView: FC<any>;
-  options?: Array<{ label: string; onClick: Function }>;
-}) => {
-  const [data, setData] = useState<any>();
-  const [activeTab, setActiveTab] = useState("grid");
-
-  useEffect(() => {
-    setData(props.data);
-  }, [props]);
-
-  let ViewComponent: any;
-  if (activeTab === "grid") {
-    ViewComponent = props.gridView;
-  } else {
-    ViewComponent = props.tableView;
-  }
+  const ViewComponent =
+    activeTab === FolderViewType.GRID ? gridView : tableView;
 
   return (
-    <Paper p="md" style={{ margin: 20 }}>
-      <FolderNavigation title={props.navTitle} />
+    <Paper p="md" className={styles["folder"]}>
+      <FolderNavigation title={navTitle} />
 
-      <Tabs value={activeTab} onChange={(val) => setActiveTab(val as any)} style={{ marginTop: 20, marginBottom: 20 }}>
+      <Tabs
+        value={activeTab}
+        onChange={(tab) => setActiveTab(tab as FolderViewType)}
+        className={styles["folder__tabs"]}
+      >
         <Tabs.List>
           <Tabs.Tab value="grid">Grid View</Tabs.Tab>
           <Tabs.Tab value="table">Table View</Tabs.Tab>
         </Tabs.List>
       </Tabs>
-
       <Stack>
-        <ViewComponent items={data} options={props.options} />
+        {options?.length ? (
+          <ViewComponent items={data} options={options} />
+        ) : null}
       </Stack>
     </Paper>
   );
