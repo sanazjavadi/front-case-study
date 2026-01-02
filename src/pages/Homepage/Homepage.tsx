@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Folder } from "~/components";
 import { GridView, TableView } from "~/components/Folder/View/";
+import { HOME_OPTIONS, ITEMS_ENDPOINT } from "~/constants";
 
 export const Homepage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("/items.json")
+    fetch(ITEMS_ENDPOINT)
       .then((res) => {
         return res.json();
       })
@@ -21,26 +22,7 @@ export const Homepage = () => {
       data={data}
       gridView={GridView}
       tableView={TableView}
-      options={[
-        {
-          label: "Mark as Favorite",
-          onClick() {
-            alert("Marked as Favorite");
-          },
-        },
-        {
-          label: "Share",
-          onClick() {
-            alert("Shared");
-          },
-        },
-        {
-          label: "Delete",
-          onClick() {
-            alert("Deleted");
-          },
-        },
-      ]}
+      options={HOME_OPTIONS}
     />
   );
 };

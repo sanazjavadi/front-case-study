@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Folder } from "~/components";
 import { GridView, TableView } from "~/components/Folder/View";
+import { FAVORITES_OPTIONS, ITEMS_ENDPOINT } from "~/constants";
 
 export const Favorites = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("/items.json")
+    fetch(ITEMS_ENDPOINT)
       .then((res) => {
         return res.json();
       })
@@ -21,32 +22,7 @@ export const Favorites = () => {
       data={data}
       gridView={GridView}
       tableView={TableView}
-      options={[
-        {
-          label: "Remove from Favorites",
-          onClick(item: any) {
-            alert(`${item.name} removed from Favorites`);
-          },
-        },
-        {
-          label: "Open item location",
-          onClick() {
-            alert("Opened");
-          },
-        },
-        {
-          label: "Share",
-          onClick() {
-            alert("Shared");
-          },
-        },
-        {
-          label: "Delete",
-          onClick(item: unknown) {
-            alert("Deleted");
-          },
-        },
-      ]}
+      options={FAVORITES_OPTIONS}
     />
   );
 };

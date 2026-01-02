@@ -4,16 +4,17 @@ import { DefaultLayout } from "./layouts";
 import { Favorites, Homepage } from "./pages";
 
 import "@mantine/core/styles.css";
+import { FAVORITES_PATH, HOME_PATH } from "./constants";
 
 const theme = createTheme({});
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: HOME_PATH,
     element: <DefaultLayout />,
     children: [
       { index: true, element: <Homepage /> },
-      { path: "favorites", element: <Favorites /> },
+      { path: FAVORITES_PATH, element: <Favorites /> },
     ],
   },
 ]);
