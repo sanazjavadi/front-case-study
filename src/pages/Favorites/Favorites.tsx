@@ -13,7 +13,7 @@ export const Favorites = () => {
       .then((result) => {
         setData(result.items);
       });
-  }, [{}]);
+  }, []);
 
   return (
     <Folder

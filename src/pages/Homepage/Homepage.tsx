@@ -13,7 +13,7 @@ export const Homepage = () => {
       .then((result) => {
         setData(result.items);
       });
-  }, [{}]);
+  }, []);
 
   return (
     <Folder
