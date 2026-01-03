@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import type { IViewProps } from "./View/view.model";
 import type { ActionMenuOption, Item } from "typings/types";
+import type { ITableViewProps } from "./View/table/Table.model";
 
 export type ViewComponent = FC<IViewProps>;
 
@@ -13,7 +14,5 @@ export interface IForlderProps {
   gridView: ViewComponent;
   tableView: ViewComponent;
   options?: ActionMenuOption[];
-  tablePage?: number;
-  tableTotalPages?: number;
-  onTablePageChange?: (page: number) => void;
+  tablePagination?: ITableViewProps["pagination"];
 }

@@ -1,13 +1,17 @@
+@import "../../styles/tokens.scss";
+
 .folder {
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
 
   &__tabs {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: $spacing-lg;
     position: sticky;
     top: 0;
-    background-color: white;
-    z-index: 9999;
+    background-color: $white;
+    z-index: $z-index-tabs;
   }
 
   &__content {
@@ -26,8 +30,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: white;
-    padding: 8px 0;
-    border-top: 1px solid #e0e0e0;
+    background: $white;
+    padding: $spacing-md 0;
+    border-top: 1px solid $gray;
   }
 }

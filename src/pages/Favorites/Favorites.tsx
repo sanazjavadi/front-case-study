@@ -31,9 +31,11 @@ export const Favorites = () => {
         gridView={GridView}
         tableView={TableView}
         options={FAVORITES_OPTIONS}
-        onTablePageChange={onTablePageChange}
-        tablePage={tablePage}
-        tableTotalPages={tableTotalPages}
+        tablePagination={{
+          onChange: onTablePageChange,
+          page: tablePage,
+          totalPages: tableTotalPages,
+        }}
       />
       <Box ref={loadMoreRef} h={1} />
       {gridLoading && isGridView && <Spinner />}

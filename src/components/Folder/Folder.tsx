@@ -1,4 +1,4 @@
-import { Flex, Pagination, Paper, Stack, Tabs } from "@mantine/core";
+import { Paper, Stack, Tabs } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./Folder.module.scss";
 import { type IForlderProps } from "./Folder.model";
@@ -13,9 +13,7 @@ export const Folder = ({
   gridView,
   tableView,
   navTitle,
-  tablePage = 1,
-  tableTotalPages = 1,
-  onTablePageChange,
+  tablePagination,
 }: IForlderProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -37,8 +35,6 @@ export const Folder = ({
   const memoizedItems = useMemo(() => {
     return activeTab === FolderViewType.GRID ? data.grid : data.table;
   }, [activeTab, data.grid, data.table]);
-
-  const hasPagination = activeTab === FolderViewType.TABLE && onTablePageChange;
 
   useEffect(() => {
     if (!searchParams.get(VIEW_QUERY)) {
@@ -63,24 +59,13 @@ export const Folder = ({
 
       <Stack className={styles["folder__content"]}>
         {options?.length && (
-          <ViewComponent items={memoizedItems} options={options} />
-        )}
-
-        {hasPagination && (
-          <Flex
-            justify="center"
-            align="center"
-            className={styles["folder__pagination"]}
-          >
-            <Pagination
-              onChange={onTablePageChange}
-              total={tableTotalPages}
-              value={tablePage}
-              color="blue"
-              size="sm"
-              radius="md"
-            />
-          </Flex>
+          <ViewComponent
+            items={memoizedItems}
+            options={options}
+            {...(activeTab === FolderViewType.TABLE && {
+              pagination: tablePagination,
+            })}
+          />
         )}
       </Stack>
     </Paper>

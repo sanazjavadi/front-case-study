@@ -1,3 +1,3 @@
 export * from "./grid/Grid";
-export * from "./tabel/Table";
+export * from "./table/Table";
 export * from "./view.model";

@@ -1,3 +1,5 @@
+@import "../../../styles/tokens.scss";
+
 .folder-actions {
   position: relative;
   display: inline-block;
@@ -7,12 +9,12 @@
     right: 0;
     min-width: 180px;
     top: "100%";
-    z-index: 999999;
-    background: white;
+    z-index: 10;
+    background: $white;
   }
 
   &__items-text {
     cursor: pointer;
-    padding: 4px;
+    padding: $spacing-xs;
   }
 }

@@ -1,10 +1,15 @@
-import { Table } from "@mantine/core";
+import { Flex, Pagination, Table } from "@mantine/core";
 import { FolderActions } from "../../FolderActions/FolderActions";
-import type { IViewProps } from "../view.model";
+
 import styles from "./Table.module.scss";
 import { formatDate } from "~/utils";
+import type { ITableViewProps } from "./Table.model";
 
-export const TableView = ({ items = [], options }: IViewProps) => {
+export const TableView = ({
+  items = [],
+  options,
+  pagination,
+}: ITableViewProps) => {
   return (
     <div className={styles["table-wrapper"]}>
       <Table.ScrollContainer minWidth={500} type="native">
@@ -47,6 +52,21 @@ export const TableView = ({ items = [], options }: IViewProps) => {
           </Table.Tbody>
         </Table>
       </Table.ScrollContainer>
+      {pagination && (
+        <Flex
+          justify="center"
+          mt="sm"
+          className={styles["table-wrapper__pagination"]}
+        >
+          <Pagination
+            value={pagination.page}
+            total={pagination.totalPages}
+            onChange={pagination.onChange}
+            size="sm"
+            radius="md"
+          />
+        </Flex>
+      )}
     </div>
   );
 };
