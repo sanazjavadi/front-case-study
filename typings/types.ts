@@ -22,3 +22,9 @@ export type Item = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type ActionMenuOption = {
+  id: string;
+  label: string;
+  onClick: (item: Item) => void;
+};
