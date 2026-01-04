@@ -1,0 +1,10 @@
+@import "../../styles/tokens.scss";
+
+.errorBoundary {
+  height: 100vh;
+
+  &__errorContainer {
+    max-width: 450px;
+    text-align: center;
+  }
+}
