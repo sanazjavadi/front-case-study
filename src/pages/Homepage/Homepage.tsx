@@ -1,5 +1,5 @@
 import { Box } from "@mantine/core";
-import { Folder, Spinner, GridView, TableView, EmptyState } from "~/components";
+import { Folder, Spinner, EmptyState } from "~/components";
 import { HOME_OPTIONS, ITEMS_ENDPOINT } from "~/constants";
 import { useFolderPage } from "~/hooks";
 
@@ -24,8 +24,6 @@ export const Homepage = () => {
       <Folder
         navTitle="Homepage"
         data={data}
-        gridView={GridView}
-        tableView={TableView}
         options={HOME_OPTIONS}
         gridPage={gridPage}
         tablePage={tablePage}

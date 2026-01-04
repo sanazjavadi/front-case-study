@@ -8,8 +8,6 @@ export type ViewComponent = FC<IViewProps>;
 export interface IForlderProps {
   data: Item[];
   navTitle: string;
-  gridView: ViewComponent;
-  tableView: ViewComponent;
   options?: ActionMenuOption[];
   tablePagination?: ITableViewProps["pagination"];
   gridPage: number;

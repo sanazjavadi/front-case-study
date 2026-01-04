@@ -1,5 +1,5 @@
 import { Box } from "@mantine/core";
-import { Folder, Spinner, GridView, TableView, EmptyState } from "~/components";
+import { Folder, Spinner, EmptyState } from "~/components";
 import { FAVORITES_OPTIONS, FOVORITE_ITEMS_ENDPOINT } from "~/constants";
 import { useFolderPage } from "~/hooks";
 
@@ -26,8 +26,6 @@ export const Favorites = () => {
         data={data}
         gridPage={gridPage}
         tablePage={tablePage}
-        gridView={GridView}
-        tableView={TableView}
         options={FAVORITES_OPTIONS}
         tablePagination={{
           onChange: onTablePageChange,
