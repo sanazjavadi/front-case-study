@@ -33,12 +33,12 @@ export const Folder = ({
     tablePage,
   });
 
-  const initialTab =
-    searchParams.get(VIEW_QUERY) === FolderViewType.TABLE
+  const [activeTab, setActiveTab] = useState<FolderViewType>(() => {
+    const viewParam = searchParams.get(VIEW_QUERY);
+    return viewParam === FolderViewType.TABLE
       ? FolderViewType.TABLE
       : FolderViewType.GRID;
-
-  const [activeTab, setActiveTab] = useState<FolderViewType>(initialTab);
+  });
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab as FolderViewType);
@@ -49,14 +49,14 @@ export const Folder = ({
     return activeTab === FolderViewType.GRID ? grid : table;
   }, [activeTab, grid, table]);
 
-  useEffect(() => {
-    if (!searchParams.get(VIEW_QUERY)) {
-      setSearchParams({ view: initialTab });
-    }
-  }, []);
-
   const ViewComponent =
     activeTab === FolderViewType.GRID ? LazyGridView : LazyTableView;
+
+  useEffect(() => {
+    if (!searchParams.get(VIEW_QUERY)) {
+      setSearchParams({ view: activeTab });
+    }
+  }, [activeTab, searchParams, setSearchParams]);
 
   return (
     <Paper p="md" className={styles["folder"]}>
