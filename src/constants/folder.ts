@@ -1,56 +1,45 @@
-import type { ActionMenuOption, Item } from "typings/types";
+import type { Item } from "typings/types";
 
-export const FAVORITES_OPTIONS: ActionMenuOption[] = [
+export const createFavoriteOptions = (
+  onToggleFavorite: (item: Item, isFavorite: boolean) => void,
+  onDelete: (item: Item) => void,
+  onShare: (item: Item) => void
+) => [
   {
     id: "remove-from-favorites",
     label: "Remove from Favorites",
-    onClick(item: Item) {
-      alert(`${item.name} removed from Favorites`);
-    },
-  },
-  {
-    id: "open-item",
-    label: "Open item location",
-    onClick() {
-      alert("Opened");
-    },
+    onClick: (item: Item) => onToggleFavorite(item, true),
   },
   {
     id: "share",
     label: "Share",
-    onClick() {
-      alert("Shared");
-    },
+    onClick: onShare,
   },
   {
     id: "delete",
     label: "Delete",
-    onClick(item: Item) {
-      alert(`${item.name} deleted`);
-    },
+    onClick: onDelete,
   },
 ];
 
-export const HOME_OPTIONS: ActionMenuOption[] = [
+export const createHomeOptions = (
+  onToggleFavorite: (item: Item, isFavorite: boolean) => void,
+  onDelete: (item: Item) => void,
+  onShare: (item: Item) => void
+) => [
   {
     id: "add-to-favorites",
     label: "Mark as Favorite",
-    onClick() {
-      alert("Marked as Favorite");
-    },
+    onClick: (item: Item) => onToggleFavorite(item, false),
   },
   {
     id: "share",
     label: "Share",
-    onClick() {
-      alert("Shared");
-    },
+    onClick: onShare,
   },
   {
     id: "delete",
     label: "Delete",
-    onClick() {
-      alert("Deleted");
-    },
+    onClick: onDelete,
   },
 ];

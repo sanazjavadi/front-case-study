@@ -4,6 +4,8 @@ import { DefaultLayout } from "./layouts";
 import { Favorites, Homepage } from "./pages";
 
 import "@mantine/core/styles.css";
+import { Notifications } from "@mantine/notifications";
+
 import { FAVORITES_PATH, HOME_PATH } from "./constants";
 
 const theme = createTheme({});
@@ -22,6 +24,7 @@ const router = createBrowserRouter([
 export const App = () => {
   return (
     <MantineProvider theme={theme}>
+      <Notifications />
       <RouterProvider router={router} />
     </MantineProvider>
   );

@@ -1,11 +1,16 @@
 import { Box } from "@mantine/core";
 import { Folder, Spinner, EmptyState } from "~/components";
-import { HOME_OPTIONS, ITEMS_ENDPOINT } from "~/constants";
+import { ITEMS_ENDPOINT } from "~/constants";
 import { useFolderPage } from "~/hooks";
+import { createHomeOptions } from "~/constants";
+import { useMemo } from "react";
+
+import { useItemActions } from "~/hooks";
 
 export const Homepage = () => {
   const {
     data,
+    loading,
     isGridView,
     gridLoading,
     loadMoreRef,
@@ -15,14 +20,21 @@ export const Homepage = () => {
     tablePage,
   } = useFolderPage(ITEMS_ENDPOINT);
 
-  if (data.length === 0) return <EmptyState />;
+  const { onToggleFavorite, onDelete, onShare } = useItemActions();
+
+  const options = useMemo(
+    () => createHomeOptions(onToggleFavorite, onDelete, onShare),
+    [onToggleFavorite, onDelete, onShare]
+  );
+
+  if (data.length === 0 && !loading) return <EmptyState />;
 
   return (
     <>
       <Folder
         navTitle="Homepage"
         data={data}
-        options={HOME_OPTIONS}
+        options={options}
         gridPage={gridPage}
         tablePage={tablePage}
         tablePagination={{
@@ -31,7 +43,9 @@ export const Homepage = () => {
           totalPages: tableTotalPages,
         }}
       />
+
       <Box ref={loadMoreRef} h={1} />
+
       {gridLoading && isGridView && <Spinner />}
     </>
   );

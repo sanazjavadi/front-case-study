@@ -1,11 +1,12 @@
 import { Box } from "@mantine/core";
+import { useMemo } from "react";
 import { Folder, Spinner, EmptyState } from "~/components";
-import { FAVORITES_OPTIONS, FOVORITE_ITEMS_ENDPOINT } from "~/constants";
+import { createFavoriteOptions, FOVORITE_ITEMS_ENDPOINT } from "~/constants";
 import { useFolderPage } from "~/hooks";
+import { useItemActions } from "~/hooks";
 
 export const Favorites = () => {
   const {
-    loading,
     data,
     isGridView,
     gridLoading,
@@ -14,9 +15,17 @@ export const Favorites = () => {
     tablePage,
     tableTotalPages,
     onTablePageChange,
+    loading,
   } = useFolderPage(FOVORITE_ITEMS_ENDPOINT);
 
-  if (data.length === 0) return <EmptyState />;
+  const { onToggleFavorite, onDelete, onShare } = useItemActions();
+
+  const options = useMemo(
+    () => createFavoriteOptions(onToggleFavorite, onDelete, onShare),
+    [onToggleFavorite, onDelete, onShare]
+  );
+
+  if (data.length === 0 && !loading) return <EmptyState />;
 
   return (
     <>
@@ -25,7 +34,7 @@ export const Favorites = () => {
         data={data}
         gridPage={gridPage}
         tablePage={tablePage}
-        options={FAVORITES_OPTIONS}
+        options={options}
         tablePagination={{
           onChange: onTablePageChange,
           page: tablePage,
