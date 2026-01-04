@@ -40,14 +40,6 @@ export const Folder = ({
 
   const [activeTab, setActiveTab] = useState<FolderViewType>(initialTab);
 
-  useEffect(() => {
-    if (activeTab === FolderViewType.GRID) {
-      import("./View").then((m) => m.TableView);
-    } else {
-      import("./View").then((m) => m.GridView);
-    }
-  }, [activeTab]);
-
   const handleTabChange = (tab: string) => {
     setActiveTab(tab as FolderViewType);
     setSearchParams({ view: tab });

@@ -5,7 +5,6 @@ import { useFolderPage } from "~/hooks";
 
 export const Homepage = () => {
   const {
-    loading,
     data,
     isGridView,
     gridLoading,
@@ -16,7 +15,6 @@ export const Homepage = () => {
     tablePage,
   } = useFolderPage(ITEMS_ENDPOINT);
 
-  if (loading) return <Spinner />;
   if (data.length === 0) return <EmptyState />;
 
   return (

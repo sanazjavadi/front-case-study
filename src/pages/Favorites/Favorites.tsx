@@ -16,7 +16,6 @@ export const Favorites = () => {
     onTablePageChange,
   } = useFolderPage(FOVORITE_ITEMS_ENDPOINT);
 
-  if (loading) return <Spinner />;
   if (data.length === 0) return <EmptyState />;
 
   return (
