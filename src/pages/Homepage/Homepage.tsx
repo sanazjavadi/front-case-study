@@ -10,11 +10,10 @@ export const Homepage = () => {
     isGridView,
     gridLoading,
     loadMoreRef,
-    visibleGridData,
-    visibleTableData,
-    tablePage,
     tableTotalPages,
     onTablePageChange,
+    gridPage,
+    tablePage,
   } = useFolderPage(ITEMS_ENDPOINT);
 
   if (loading) return <Spinner />;
@@ -24,13 +23,12 @@ export const Homepage = () => {
     <>
       <Folder
         navTitle="Homepage"
-        data={{
-          grid: visibleGridData,
-          table: visibleTableData,
-        }}
+        data={data}
         gridView={GridView}
         tableView={TableView}
         options={HOME_OPTIONS}
+        gridPage={gridPage}
+        tablePage={tablePage}
         tablePagination={{
           onChange: onTablePageChange,
           page: tablePage,

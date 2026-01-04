@@ -6,6 +6,7 @@ import { FolderNavigation } from "./FolderNavigation/FolderNavigation";
 import { useSearchParams } from "react-router-dom";
 import { VIEW_QUERY } from "~/constants";
 import { FolderViewType } from "typings/types";
+import { useVisibleItems } from "~/hooks";
 
 export const Folder = ({
   data,
@@ -14,8 +15,16 @@ export const Folder = ({
   tableView,
   navTitle,
   tablePagination,
+  gridPage,
+  tablePage,
 }: IForlderProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { grid, table } = useVisibleItems({
+    data,
+    gridPage,
+    tablePage,
+  });
 
   const initialTab =
     searchParams.get(VIEW_QUERY) === FolderViewType.TABLE
@@ -33,8 +42,8 @@ export const Folder = ({
   };
 
   const memoizedItems = useMemo(() => {
-    return activeTab === FolderViewType.GRID ? data.grid : data.table;
-  }, [activeTab, data.grid, data.table]);
+    return activeTab === FolderViewType.GRID ? grid : table;
+  }, [activeTab, grid, table]);
 
   useEffect(() => {
     if (!searchParams.get(VIEW_QUERY)) {

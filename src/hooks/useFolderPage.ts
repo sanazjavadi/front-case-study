@@ -2,11 +2,7 @@ import { useRef, useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { FolderViewType } from "typings/types";
 import { GRID_LOAD_DELAY, ITEMS_PER_PAGE, VIEW_QUERY } from "~/constants";
-import {
-  useIntersectionObserver,
-  useVisibleItems,
-  useFetchItems,
-} from "~/hooks";
+import { useIntersectionObserver, useFetchItems } from "~/hooks";
 
 export const useFolderPage = (endpoint: string) => {
   const [gridPage, setGridPage] = useState(1);
@@ -21,12 +17,6 @@ export const useFolderPage = (endpoint: string) => {
   }, [searchParams]);
 
   const { data, loading } = useFetchItems(endpoint);
-
-  const { grid, table } = useVisibleItems({
-    data,
-    gridPage,
-    tablePage,
-  });
 
   const handleTablePageChange = useCallback((page: number) => {
     setTablePage(page);
@@ -62,8 +52,7 @@ export const useFolderPage = (endpoint: string) => {
     isGridView,
     gridLoading,
     loadMoreRef,
-    visibleGridData: grid,
-    visibleTableData: table,
+    gridPage,
     tablePage,
     tableTotalPages,
     onTablePageChange: handleTablePageChange,

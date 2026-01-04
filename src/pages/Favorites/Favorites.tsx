@@ -10,8 +10,7 @@ export const Favorites = () => {
     isGridView,
     gridLoading,
     loadMoreRef,
-    visibleGridData,
-    visibleTableData,
+    gridPage,
     tablePage,
     tableTotalPages,
     onTablePageChange,
@@ -24,10 +23,9 @@ export const Favorites = () => {
     <>
       <Folder
         navTitle="Favorites"
-        data={{
-          grid: visibleGridData,
-          table: visibleTableData,
-        }}
+        data={data}
+        gridPage={gridPage}
+        tablePage={tablePage}
         gridView={GridView}
         tableView={TableView}
         options={FAVORITES_OPTIONS}

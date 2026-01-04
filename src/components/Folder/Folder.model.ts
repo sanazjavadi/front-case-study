@@ -6,13 +6,12 @@ import type { ITableViewProps } from "./View/table/Table.model";
 export type ViewComponent = FC<IViewProps>;
 
 export interface IForlderProps {
-  data: {
-    grid: Item[];
-    table: Item[];
-  };
+  data: Item[];
   navTitle: string;
   gridView: ViewComponent;
   tableView: ViewComponent;
   options?: ActionMenuOption[];
   tablePagination?: ITableViewProps["pagination"];
+  gridPage: number;
+  tablePage: number;
 }
