@@ -1,7 +1,7 @@
 import { createTheme, MantineProvider } from "@mantine/core";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { DefaultLayout } from "./layouts";
-import { Favorites, Homepage } from "./pages";
+import { Favorites, Homepage, NotFoundPage } from "./pages";
 
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
@@ -17,6 +17,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Homepage /> },
       { path: FAVORITES_PATH, element: <Favorites /> },
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);

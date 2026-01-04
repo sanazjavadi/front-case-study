@@ -1,0 +1,35 @@
+@import "../../styles//tokens.scss";
+
+.not-found {
+  &__container {
+    height: 100vh;
+    padding: 20px;
+  }
+
+  &__stack {
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  &__title-large {
+    font-size: 80px;
+    line-height: 1;
+  }
+
+  &__title-small {
+    margin-bottom: $spacing-sm;
+  }
+
+  &__text {
+    color: $dark-gray;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-lg;
+  }
+}
