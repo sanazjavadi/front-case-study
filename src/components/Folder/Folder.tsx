@@ -1,12 +1,11 @@
 import { Paper, Stack, Tabs } from "@mantine/core";
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import styles from "./Folder.module.scss";
 import { type IForlderProps } from "./Folder.model";
 import { FolderNavigation } from "./FolderNavigation/FolderNavigation";
 import { useSearchParams } from "react-router-dom";
 import { VIEW_QUERY } from "~/constants";
 import { FolderViewType } from "typings/types";
-import { useVisibleItems } from "~/hooks";
 import { Spinner } from "~/components";
 
 const LazyGridView = lazy(() =>
@@ -17,21 +16,8 @@ const LazyTableView = lazy(() =>
   import("./View/").then((module) => ({ default: module.TableView }))
 );
 
-export const Folder = ({
-  data,
-  options,
-  navTitle,
-  tablePagination,
-  gridPage,
-  tablePage,
-}: IForlderProps) => {
+export const Folder = ({ data, options, navTitle }: IForlderProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const { grid, table } = useVisibleItems({
-    data,
-    gridPage,
-    tablePage,
-  });
 
   const [activeTab, setActiveTab] = useState<FolderViewType>(() => {
     const viewParam = searchParams.get(VIEW_QUERY);
@@ -44,13 +30,6 @@ export const Folder = ({
     setActiveTab(tab as FolderViewType);
     setSearchParams({ view: tab });
   };
-
-  const memoizedItems = useMemo(() => {
-    return activeTab === FolderViewType.GRID ? grid : table;
-  }, [activeTab, grid, table]);
-
-  const ViewComponent =
-    activeTab === FolderViewType.GRID ? LazyGridView : LazyTableView;
 
   useEffect(() => {
     if (!searchParams.get(VIEW_QUERY)) {
@@ -76,13 +55,11 @@ export const Folder = ({
       <Stack className={styles["folder__content"]}>
         {options?.length && (
           <Suspense fallback={<Spinner />}>
-            <ViewComponent
-              items={memoizedItems}
-              options={options}
-              {...(activeTab === FolderViewType.TABLE && {
-                pagination: tablePagination,
-              })}
-            />
+            {activeTab === FolderViewType.GRID ? (
+              <LazyGridView items={data} options={options} />
+            ) : (
+              <LazyTableView items={data} options={options} />
+            )}
           </Suspense>
         )}
       </Stack>

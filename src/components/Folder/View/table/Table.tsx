@@ -1,15 +1,22 @@
 import { Flex, Pagination, Table } from "@mantine/core";
+import { useState, useMemo } from "react";
 import { FolderActions } from "../../FolderActions/FolderActions";
-
 import styles from "./Table.module.scss";
 import { formatDate } from "~/utils";
+import { ITEMS_PER_PAGE } from "~/constants";
 import type { ITableViewProps } from "./Table.model";
 
-export const TableView = ({
-  items = [],
-  options,
-  pagination,
-}: ITableViewProps) => {
+export const TableView = ({ items = [], options }: ITableViewProps) => {
+  const [page, setPage] = useState(1);
+
+  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+
+  const visibleItems = useMemo(() => {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    return items.slice(start, end);
+  }, [items, page]);
+
   return (
     <div className={styles["table-wrapper"]}>
       <Table.ScrollContainer minWidth={500} type="native">
@@ -24,9 +31,8 @@ export const TableView = ({
               <Table.Th>Actions</Table.Th>
             </Table.Tr>
           </Table.Thead>
-
           <Table.Tbody>
-            {items.map((item) => {
+            {visibleItems.map((item) => {
               const created = formatDate(item.createdAt);
               const updated = formatDate(item.updatedAt);
 
@@ -52,16 +58,17 @@ export const TableView = ({
           </Table.Tbody>
         </Table>
       </Table.ScrollContainer>
-      {pagination && (
+
+      {totalPages > 1 && (
         <Flex
           justify="center"
           mt="sm"
           className={styles["table-wrapper__pagination"]}
         >
           <Pagination
-            value={pagination.page}
-            total={pagination.totalPages}
-            onChange={pagination.onChange}
+            value={page}
+            total={totalPages}
+            onChange={setPage}
             size="sm"
             radius="md"
           />
