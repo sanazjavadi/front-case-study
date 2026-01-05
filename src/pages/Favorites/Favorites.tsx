@@ -1,52 +1,23 @@
-import { useEffect, useState } from "react";
-import { Folder } from "~/components";
-import { GridView, TableView } from "~/components/Folder/View";
+import { useMemo } from "react";
+import { Folder, EmptyState } from "~/components";
+import { createFavoriteOptions, FOVORITE_ITEMS_ENDPOINT } from "~/constants";
+import { useFetchItems, useItemActions } from "~/hooks";
 
 export const Favorites = () => {
-  const [data, setData] = useState([]);
+  const { data, loading } = useFetchItems(FOVORITE_ITEMS_ENDPOINT);
 
-  useEffect(() => {
-    fetch("/items.json")
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setData(result.items);
-      });
-  }, [{}]);
+  const { onToggleFavorite, onDelete, onShare } = useItemActions();
+
+  const options = useMemo(
+    () => createFavoriteOptions(onToggleFavorite, onDelete, onShare),
+    [onToggleFavorite, onDelete, onShare]
+  );
+
+  if (data.length === 0 && !loading) return <EmptyState />;
 
   return (
-    <Folder
-      navTitle="Favorites"
-      data={data}
-      gridView={GridView}
-      tableView={TableView}
-      options={[
-        {
-          label: "Remove from Favorites",
-          onClick(item: any) {
-            alert(`${item.name} removed from Favorites`);
-          },
-        },
-        {
-          label: "Open item location",
-          onClick() {
-            alert("Opened");
-          },
-        },
-        {
-          label: "Share",
-          onClick() {
-            alert("Shared");
-          },
-        },
-        {
-          label: "Delete",
-          onClick(item: unknown) {
-            alert("Deleted");
-          },
-        },
-      ]}
-    />
+    <>
+      <Folder navTitle="Favorites" data={data} options={options} />
+    </>
   );
 };

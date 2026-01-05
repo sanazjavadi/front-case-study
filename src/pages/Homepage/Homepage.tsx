@@ -1,46 +1,20 @@
-import { useEffect, useState } from "react";
-import { Folder } from "~/components";
-import { GridView, TableView } from "~/components/Folder/View/";
+import { Folder, EmptyState } from "~/components";
+import { ITEMS_ENDPOINT } from "~/constants";
+import { createHomeOptions } from "~/constants";
+import { useMemo } from "react";
+import { useItemActions } from "~/hooks";
+import { useFetchItems } from "~/hooks";
 
 export const Homepage = () => {
-  const [data, setData] = useState([]);
+  const { data, loading } = useFetchItems(ITEMS_ENDPOINT);
+  const { onToggleFavorite, onDelete, onShare } = useItemActions();
 
-  useEffect(() => {
-    fetch("/items.json")
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setData(result.items);
-      });
-  }, [{}]);
-
-  return (
-    <Folder
-      navTitle="Homepage"
-      data={data}
-      gridView={GridView}
-      tableView={TableView}
-      options={[
-        {
-          label: "Mark as Favorite",
-          onClick() {
-            alert("Marked as Favorite");
-          },
-        },
-        {
-          label: "Share",
-          onClick() {
-            alert("Shared");
-          },
-        },
-        {
-          label: "Delete",
-          onClick() {
-            alert("Deleted");
-          },
-        },
-      ]}
-    />
+  const options = useMemo(
+    () => createHomeOptions(onToggleFavorite, onDelete, onShare),
+    [onToggleFavorite, onDelete, onShare]
   );
+
+  if (data.length === 0 && !loading) return <EmptyState />;
+
+  return <Folder navTitle="Homepage" data={data} options={options} />;
 };

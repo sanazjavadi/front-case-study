@@ -1,0 +1,44 @@
+@import "../styles/tokens.scss";
+
+.default-layout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: $full-height;
+  position: fixed;
+
+  &__sidebar {
+    width: 200px;
+    height: $full-height;
+    background: $light-gray;
+    padding: $spacing-md;
+    border: 1px solid $gray;
+    z-index: $z-index-sidebar;
+
+    @media (max-width: $breakpoint-sm) {
+      display: none;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: 0 $spacing-lg;
+    overflow-y: auto;
+    height: 100%;
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 0;
+    }
+  }
+
+  .hamburger-button {
+    margin: $spacing-sm;
+    display: none;
+
+    @media (max-width: $breakpoint-sm) {
+      display: block;
+      max-width: 15px;
+      height: 50px;
+    }
+  }
+}

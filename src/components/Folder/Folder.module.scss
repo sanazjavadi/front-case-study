@@ -1,3 +1,37 @@
+@import "../../styles/tokens.scss";
+
 .folder {
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+
+  &__tabs {
+    width: 100%;
+    margin-bottom: $spacing-lg;
+    position: sticky;
+    top: 0;
+    background-color: $white;
+    z-index: $z-index-tabs;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+    position: relative;
+  }
+
+  &__pagination {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $white;
+    padding: $spacing-md 0;
+    border-top: 1px solid $gray;
+  }
 }
