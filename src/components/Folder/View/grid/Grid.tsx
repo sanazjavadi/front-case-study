@@ -1,33 +1,25 @@
 import { SimpleGrid, Card, Text, Badge, Box } from "@mantine/core";
-import { useState, useRef, useCallback } from "react";
+import { useRef } from "react";
 import { FolderActions } from "../../FolderActions/FolderActions";
 import styles from "./Grid.module.scss";
 import { formatDate } from "~/utils";
 import { ItemType } from "typings/types";
-import { ITEMS_PER_PAGE, GRID_LOAD_DELAY } from "~/constants";
 import { useIntersectionObserver } from "~/hooks";
 import type { IViewProps } from "../view.model";
 import { Spinner } from "~/components/Spinner/Spinner";
+import { usePagination } from "~/hooks/usePagination";
+import { ITEMS_PER_PAGE_Grid } from "~/constants";
 
 export const GridView = ({ items = [], options }: IViewProps) => {
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  const visibleItems = items.slice(0, page * ITEMS_PER_PAGE);
+  const { visibleItems, goToNextPage, loading } = usePagination({
+    items,
+    itemsPerPage: ITEMS_PER_PAGE_Grid,
+    infiniteScroll: true,
+  });
 
-  const handleLoadMore = useCallback(() => {
-    if (page * ITEMS_PER_PAGE < items.length && !loading) {
-      setLoading(true);
-      setTimeout(() => {
-        setPage((prev) => prev + 1);
-        setLoading(false);
-      }, GRID_LOAD_DELAY);
-    }
-  }, [items.length, page, loading]);
-
-  useIntersectionObserver(loadMoreRef, handleLoadMore, true);
-
+  useIntersectionObserver(loadMoreRef, goToNextPage, true);
   return (
     <>
       <SimpleGrid

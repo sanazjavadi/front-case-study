@@ -1,22 +1,16 @@
 import { Flex, Pagination, Table } from "@mantine/core";
-import { useState, useMemo } from "react";
 import { FolderActions } from "../../FolderActions/FolderActions";
 import styles from "./Table.module.scss";
 import { formatDate } from "~/utils";
-import { ITEMS_PER_PAGE } from "~/constants";
-import type { ITableViewProps } from "./Table.model";
+import { ITEMS_PER_PAGE_Table } from "~/constants";
+import { usePagination } from "~/hooks/usePagination";
+import type { IViewProps } from "../view.model";
 
-export const TableView = ({ items = [], options }: ITableViewProps) => {
-  const [page, setPage] = useState(1);
-
-  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
-
-  const visibleItems = useMemo(() => {
-    const start = (page - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    return items.slice(start, end);
-  }, [items, page]);
-
+export const TableView = ({ items = [], options }: IViewProps) => {
+  const { visibleItems, page, totalPages, goToPage } = usePagination({
+    items,
+    itemsPerPage: ITEMS_PER_PAGE_Table,
+  });
   return (
     <div className={styles["table-wrapper"]}>
       <Table.ScrollContainer minWidth={500} type="native">
@@ -68,7 +62,7 @@ export const TableView = ({ items = [], options }: ITableViewProps) => {
           <Pagination
             value={page}
             total={totalPages}
-            onChange={setPage}
+            onChange={goToPage}
             size="sm"
             radius="md"
           />

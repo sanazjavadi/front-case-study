@@ -5,7 +5,7 @@
 - Optimized rendering for large lists using **pagination for table view** and **incremental loading for grid view**.
 - **Fixed an issue on Home and Favorites pages where API requests were being triggered unnecessarily, improving performance.**
 - Refactored shared logic into reusable **hooks and utilities** to improve readability and maintainability:
-  - Data fetching, pagination, infinite scroll, item actions.
+  - Data fetching, pagination, infinite scroll, pagination, item actions.
 - Added a global **Error Boundary** and a dedicated **404 page** to improve reliability and navigation.
 - Standardized styling using **BEM methodology** and **design tokens**, removed inline styles.
 - Improved **folder structure**, separated Share-related components, and added **barrel files** for cleaner imports.
