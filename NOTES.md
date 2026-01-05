@@ -19,7 +19,8 @@
 ## Trade-offs & Assumptions
 
 - User actions are simulated with notifications due to the absence of a backend.
-- Focused on **code quality, type safety, and UX** rather than adding additional features.
+- **Pagination & infinite scroll are handled on the frontend** because the API returns all items at once.  
+  If the API supported paginated requests, `useFetchItems` could handle fetching items per page, and both Grid and Table components wouldn’t need to manage page state manually.
 
 ---
 
@@ -28,3 +29,4 @@
 - Improve **filtering and tagging** experience.
 - Enhance error handling and integrate a real backend.
 - Adopt **SWR** and structured state management where needed.
+- Configure **TSLint, ESLint, and Prettier** to enforce consistent code style and catch potential issues.
